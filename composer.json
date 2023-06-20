@@ -1,7 +1,6 @@
 {
     "name": "justcommunication/func-bundle",
     "description": "Func bundle",
-    "version": "0.1.0",
     "type": "symfony-bundle",
     "keywords": ["functions","array","date","string"],
     "license": "proprietary",

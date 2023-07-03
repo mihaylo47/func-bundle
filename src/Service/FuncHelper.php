@@ -153,7 +153,7 @@ class FuncHelper
         return $res;
     }
 
-    static public function GetIP(): string{
+    static public function getIP(): string{
         $stat_ip=array();
         if(isset( $_SERVER["HTTP_X_FORWARDED_FOR"]) ) {
             $str=explode(',',$_SERVER["HTTP_X_FORWARDED_FOR"]);
@@ -188,6 +188,32 @@ class FuncHelper
         //+79024889090 79024889090 89024889090
         //if (!preg_match ( "/^[+]{0,1}[78][0-9]{10}$/", $str)) {
         if (!preg_match ( "/^(\+7|7|8){1}[0-9]{10}$/", $str)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Проверка корректности мыла
+     * @param string $email
+     * @return bool
+     */
+    static function isEmail(string $email): bool{
+        if (!preg_match ( "/^[-\w.]+@([a-zA-Z0-9][-a-zA-Z0-9]+\.)+[a-zA-Z]{2,6}$/", $email)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Корректный пароль, некий усредненный стандарт, в крайнем случае можно подглядеть здесь регексп
+     * @param string $pass
+     * @param int $min_length - миниммальная длина (8)
+     * @param int $max_length - максиммальная длина (32)
+     * @return bool
+     */
+    static function isPass(string $pass, $min_length=8, $max_length=32): bool{
+        if (!preg_match ("/^[-a-zA-Zа-яА-ЯёЁ0-9_\s!@%#*$^&()+=?.,]{".$min_length.",".$max_length."}$/u", $pass)) {
             return false;
         }
         return true;

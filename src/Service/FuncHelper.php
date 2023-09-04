@@ -58,6 +58,23 @@ class FuncHelper
         return false;
     }
 
+
+    /**
+     * Индексация массива по заданному ключу (перечислимого типа по ключу генерируемому функцией)
+     * @param iterable $list
+     * @param callable $keyFn
+     * @return array
+     */
+    static public function indexBy(iterable $list, callable $keyFn): array{
+        //return array_reduce($list, fn($res, $item)=> ($res??[])+[$keyFn($item)=>$item]);
+        $result = [];
+        foreach ($list as $key=>$item){
+            $result[$keyFn($item, $key)] = $item;
+        }
+        return $result;
+    }
+    
+    
     /**
      * Проекция среза массива полей $val на поле $key
      * Создает новый массив (если передано значение $key то ассоциативный по этому полю)
@@ -697,6 +714,16 @@ class FuncHelper
         }
         return implode("", $str_arr);
     }
+
+    static public function randomLetterStr(int $length): string{
+        $str = '';
+        for($i=0; $i<$length; $i++){
+            $str .= chr(rand(97,122));
+        }
+        return $str;
+    }
+
+
 
 
 }

@@ -724,6 +724,21 @@ class FuncHelper
     }
 
 
+    static public function fall()
+    {
+        try {
+            throw new Exception;
+        } catch (Exception $e) {
+            $whereWeAre = $e->getTrace();
+            echo "\r\n" . __FILE__ . ' (line:' . __LINE__ . ' "current")'; //__FUNCTION__
+            //print_r($whereWeAre);
+            foreach ($whereWeAre as $step) {
+                echo "\r\n" . (isset($step['file']) ? $step['file'] : 'nofile') . ' (line:' . (isset($step['line']) ? $step['line'] : '-') . ' "' . $step['function'] . '")';
+            }
+        }
+        echo "\r\n";
+        die();
+    }
 
 
 }
